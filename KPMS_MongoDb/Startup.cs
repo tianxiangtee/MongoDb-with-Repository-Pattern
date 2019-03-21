@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MYDC.CodeBase.DataAccess;
+using MYDC.CodeBase.DataAccess.Implementation;
+using MYDC.CodeBase.DataAccess.Interfaces;
 
 namespace KPMS_MongoDb
 {
@@ -33,6 +36,10 @@ namespace KPMS_MongoDb
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.Configure<Settings>(o => { o.iConfigurationRoot = (IConfigurationRoot)Configuration; });
+            services.AddTransient<IMasterKeyRepository, MasterKeyRepository>();
+            services.AddTransient<IMasterReceiverRepository, MasterReceiverRepository>();
+            services.AddTransient<IMasterAnnouncementRepository, MasterAnnouncementRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

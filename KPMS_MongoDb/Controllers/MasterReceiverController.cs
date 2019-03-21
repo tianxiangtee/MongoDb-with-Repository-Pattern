@@ -25,13 +25,13 @@ namespace KPMS_MongoDb.Controllers
 
         public async Task<string> Get()
         {
-            var keyword = await _masterReceiverRepository.Get();
+            var keyword = await _masterReceiverRepository.GetfromRepo();
             return JsonConvert.SerializeObject(keyword);
         }
 
         public async Task<string> GetById(string Id)
         {
-            var keyword = await _masterReceiverRepository.GetById(Id) ?? new master_receiver();
+            var keyword = await _masterReceiverRepository.GetfromRepoById(Id) ?? new master_receiver();
             return JsonConvert.SerializeObject(keyword);
         }
     }

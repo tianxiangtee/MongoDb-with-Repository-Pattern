@@ -25,34 +25,13 @@ namespace KPMS_MongoDb.Controllers
 
         public async Task<string> Get()
         {
-            var keyword = await _masterKeyRepository.Get();
+            var keyword = await _masterKeyRepository.GetfromRepo();
             return JsonConvert.SerializeObject(keyword);
         }
 
-        //public async Task<IActionResult> List()
-        //{
-        //    var keywords = await _masterKeyRepository.Get();
-        //    var keywordVM = new List<MasterKeyWordViewModel>();
-
-        //    if (keywords.Count() == 0)
-        //    {
-        //        return View("Empty");
-        //    }
-        //    //Do for good practice only.
-        //    foreach (var keyword in keywords)
-        //    {
-        //        keywordVM.Add(new MasterKeyWordViewModel
-        //        {
-        //            Keyword = keyword
-        //        });
-        //    }
-
-        //    return View(keywordVM);
-        //}
-
         public async Task<string> GetById(string Id)
         {
-            var keyword = await _masterKeyRepository.GetById(Id) ?? new master_keyword();
+            var keyword = await _masterKeyRepository.GetfromRepoById(Id) ?? new master_keyword();
             return JsonConvert.SerializeObject(keyword);
         }
     }

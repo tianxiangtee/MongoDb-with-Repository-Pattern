@@ -11,10 +11,12 @@ namespace MYDC.CodeBase.DataAccess.Implementation
     public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly MongoContext _context;
+        protected readonly string _collection_name;
 
-        public Repository(IOptions<Settings> settings)
+        public Repository(IOptions<Settings> settings, string collection_name)
         {
             _context = new MongoContext(settings);
+            _collection_name = collection_name;
         }
         public int Count(Func<T, bool> predicate)
         {
@@ -41,17 +43,16 @@ namespace MYDC.CodeBase.DataAccess.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<T>>GetfromRepo(string collection)
-        {
-            var test = _context.mongoDatabase.GetCollection<T>(collection);
-            var temp = await _context.mongoDatabase.GetCollection<T>(collection).Find(x => true).ToListAsync();
+        public async Task<IEnumerable<T>>GetfromRepo()
+        {            
+            var temp = await _context.mongoDatabase.GetCollection<T>(_collection_name).Find(x => true).ToListAsync();
             return temp;           
         }
 
-        public async Task<T> GetfromRepoById(string collection,string id)
+        public async Task<T> GetfromRepoById(string id)
         {
             var keyword = Builders<T>.Filter.Eq("_Id", id);
-            var temp = await _context.mongoDatabase.GetCollection<T>(collection).Find(keyword).FirstOrDefaultAsync();
+            var temp = await _context.mongoDatabase.GetCollection<T>(_collection_name).Find(keyword).FirstOrDefaultAsync();
             return temp;
         }
 

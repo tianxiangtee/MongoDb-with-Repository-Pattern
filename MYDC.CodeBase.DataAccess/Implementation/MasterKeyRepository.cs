@@ -11,22 +11,12 @@ namespace MYDC.CodeBase.DataAccess.Implementation
 {
     public class MasterKeyRepository : Repository<master_keyword>, IMasterKeyRepository
     {
-        private readonly MongoContext mongoContext = null;
+        
 
-        public MasterKeyRepository(IOptions<Settings> settings) : base(settings)
-        {
-            mongoContext = new MongoContext(settings);
-        }
-        public async Task<IEnumerable<master_keyword>> Get()
-        {
-            var temp = await mongoContext.master_keyword.Find(x => true).ToListAsync();
-            return temp;
+        public MasterKeyRepository(IOptions<Settings> settings) : base(settings,"master_keyword")
+        {    
+            
         }
 
-        public async Task<master_keyword> GetById(string id)
-        {
-            var keyword = Builders<master_keyword>.Filter.Eq("_Id", id);
-            return await mongoContext.master_keyword.Find(keyword).FirstOrDefaultAsync();
-        }
     }
 }

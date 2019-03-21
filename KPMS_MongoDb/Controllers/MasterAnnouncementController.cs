@@ -16,22 +16,16 @@ namespace KPMS_MongoDb.Controllers
         {
             _masterAnnouncementRepository = masterAnnouncementRepository;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public async Task<string> Get()
-        {
-            //var announcements = await _masterAnnouncementRepository.Get();
-
-            var announcements = await _masterAnnouncementRepository.GetfromRepo("master_announcement");
+        {           
+            var announcements = await _masterAnnouncementRepository.GetfromRepo();
             return JsonConvert.SerializeObject(announcements);
         }
 
         public async Task<string> GetById(string Id)
         {
-            var announcements = await _masterAnnouncementRepository.GetfromRepoById("master_announcement", Id) ?? new master_announcement();
+            var announcements = await _masterAnnouncementRepository.GetfromRepoById(Id) ?? new master_announcement();
             return JsonConvert.SerializeObject(announcements);
         }
     }

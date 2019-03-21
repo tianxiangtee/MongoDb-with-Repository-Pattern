@@ -14,7 +14,7 @@ namespace MYDC.CodeBase.DataAccess.Interfaces
         void Delete(T entity);
         int Count(Func<T, bool> predicate);
 
-        Task<IEnumerable<T>> GetfromRepo(string collection);
-        Task<T> GetfromRepoById(string collection, string id);
+        Task<IEnumerable<T>> GetfromRepo();
+        Task<T> GetfromRepoById(string id);
     }
 }

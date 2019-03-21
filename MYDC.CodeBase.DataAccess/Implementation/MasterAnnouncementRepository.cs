@@ -10,12 +10,10 @@ using System.Threading.Tasks;
 namespace MYDC.CodeBase.DataAccess.Implementation
 {
     public class MasterAnnouncementRepository : Repository<master_announcement>, IMasterAnnouncementRepository
-    {
-        private readonly MongoContext mongoContext = null;
-
-        public MasterAnnouncementRepository(IOptions<Settings> settings) : base(settings)
+    {      
+        public MasterAnnouncementRepository(IOptions<Settings> settings) : base(settings,"master_announcement")
         {
-            mongoContext = new MongoContext(settings);
+            
         }
         
     }
